@@ -12,9 +12,9 @@ pub struct Block {
 
 impl Debug for Block {
     fn fmt (&self, f: &mut Formatter) -> fmt::Result {
-        write!(f, "Block[{index}]: {} at: {} with: {}",
+        write!(f, "Block[{}]: {} at: {} with: {}",
             &self.index,
-            &self.hash,
+            &hex::encode(&self.hash),
             &self.timestamp,
             &self.payload,
         )
@@ -22,7 +22,7 @@ impl Debug for Block {
 }
 
 impl Block {
-    pub fn new( index: u32, timestamp: u32, hash: BlockHash, prev_block_hash: BlockHash, nonce: u64, payload: String) -> Self {
+    pub fn new( index: u32, timestamp: u32, prev_block_hash: BlockHash, nonce: u64, payload: String) -> Self {
         Block {
             index,
             timestamp,

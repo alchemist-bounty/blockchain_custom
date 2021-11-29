@@ -1,3 +1,6 @@
+use blockchainlib::*;
+
 fn main () {
-    println!("Hello, blockchain!");
+    let block = Block::new(0, 0, vec![0; 32], 0, "Custom block".to_owned() );
+    println!("{:?}", &block);
 }
