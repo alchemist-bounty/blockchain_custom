@@ -18,6 +18,8 @@ impl Blockchain {
                 let prev_block = &self.blocks[i-1];
                 if block.timestamp <= prev_block.timestamp {
                     println!("Time did not increase");
+                    println!("{}", block.timestamp);
+                    println!("{}", prev_block.timestamp);
                     return false;
                 } else if block.prev_block_hash != prev_block.hash {
                     println!("hash mismatch");
