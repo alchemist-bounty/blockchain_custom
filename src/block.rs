@@ -40,6 +40,8 @@ impl Block {
         for nonce_attempt in 0..(u64::max_value()) {
             self.nonce = nonce_attempt;
             let hash = self.hash();
+            // println!("{:?}", nonce_attempt);
+            // println!("{:?}", difficulty_bytes_as_u128(&hash));
             if check_difficulty(&hash, self.difficulty) {
                 self.hash = hash;
                 return;
