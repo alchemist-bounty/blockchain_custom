@@ -1,4 +1,5 @@
 use super::*;
+use std::collections::HashSet;
 
 pub enum BlockValidationErr {
     MismatchedIndex,
@@ -12,7 +13,8 @@ pub enum BlockValidationErr {
 }
 
 pub struct Blockchain {
-    pub blocks: Vec<Block>, 
+    pub blocks: Vec<Block>,
+    unspent_outputs: HashSet<Hash>
 }
 
 impl Blockchain {
@@ -38,6 +40,18 @@ impl Blockchain {
             }
         }
         
+        if let Some((coinbase, transactions)) = block.transactions.split_first() {
+            if !coinbase.is_coinbase() {
+                return Err(BlockValidationErr::InvalidCoinbaseTransaction);
+            }
+            let mut block_spent: HashSet<Hash> = HashSet::new();
+
+            for transaction in transactions {
+                let input_hashes = transaction.input_hashes();
+            }
+        }
+        
+
         Ok(())
     }
 }
