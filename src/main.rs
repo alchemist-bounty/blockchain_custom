@@ -18,10 +18,10 @@ fn main () {
         }    
     ], difficulty );
     
-    block.mine();
+    genesis_block.mine();
     println!("Mined genesis block {:?}", &genesis_block);
     
-    let mut last_hash = block.hash.clone();
+    let mut last_hash = genesis_block.hash.clone();
 
     let mut blockchain = Blockchain::new();
 

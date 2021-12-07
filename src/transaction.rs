@@ -12,6 +12,8 @@ impl Hashable for Output {
 
         bytes.extend(self.to_addr.as_bytes());
         bytes.extend(&u64_bytes(&self.value));
+
+        bytes
     }
 }
 
@@ -71,5 +73,7 @@ impl Hashable for Transaction {
                 .flat_map(|output| output.bytes())
                 .collect::<Vec<u8>>()
         );
+
+        bytes
     }
 }
