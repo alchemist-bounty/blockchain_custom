@@ -2,7 +2,21 @@ use blockchainlib::*;
 
 fn main () {
     let difficulty = 0x000fffffffffffffffffffffffffffff;
-    let mut block = Block::new(0, now(), vec![0; 32], 0, "Genesis block!".to_owned(), difficulty );
+    let mut genesis_block = Block::new(0, now(), vec![0; 32], vec![
+        Transaction {
+            inputs: vec![],
+            outputs: vec![
+                transaction::Output {
+                    to_addr: "Alice".to_owned(),
+                    value: 50,
+                },
+                transaction::Output {
+                    to_addr: "Bob".to_owned(),
+                    value: 7,
+                },
+            ]
+        }    
+    ], difficulty );
     
     block.mine();
     println!("Mined genesis block {:?}", &block);

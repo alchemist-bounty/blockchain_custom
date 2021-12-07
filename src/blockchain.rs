@@ -60,7 +60,10 @@ impl Blockchain {
 
                 if output_value > input_value {
                     return Err(BlockValidationErr::InsufficientInputValue);
+                } else {
+                    block_created.extend(coinbase.output_hashes());
                 }
+
 
                 let fee = input_value - output_value;
 
@@ -71,11 +74,14 @@ impl Blockchain {
             }
 
             if coinbase.output_value() < total_fee {
-                
+                return Err(BlockValidationErr::InvalidCoinbaseTransaction);
             }
+
+            self.unspent_outputs.retain(|output| !block_spent.contains(output));
+            self.unspent_outputs.extend(block_created);
         }
         
-
+        self.blocks.push(block);
         Ok(())
     }
 }
