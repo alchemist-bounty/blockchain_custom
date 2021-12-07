@@ -19,28 +19,13 @@ fn main () {
     ], difficulty );
     
     block.mine();
-    println!("Mined genesis block {:?}", &block);
+    println!("Mined genesis block {:?}", &genesis_block);
     
     let mut last_hash = block.hash.clone();
 
-    let mut blockchain = Blockchain {
-        blocks: vec![block],
-    };
+    let mut blockchain = Blockchain::new();
 
-    println!("Verify: {}", &blockchain.verify());
+    blockchain.update_with_block(genesis_block).expect("Failed to add genesis block");
     
-    for i in 1..=10 {
-        let mut block = Block::new(i, now(), last_hash, 0, "Another block".to_owned(), difficulty );
     
-        block.mine();
-        println!("Mined block {:?}", &block);
-
-        last_hash = block.hash.clone();
-        blockchain.blocks.push(block);
-
-        println!("Verify: {}", &blockchain.verify());
-    }
-
-    blockchain.blocks[3].prev_block_hash[18] = 8;
-    println!("Verify: {}", &blockchain.verify());
 }
