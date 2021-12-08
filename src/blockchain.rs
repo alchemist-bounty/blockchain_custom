@@ -46,6 +46,9 @@ impl Blockchain {
                 return Err(BlockValidationErr::InvalidGenesisBlockFormat);
             }
         }
+
+        println!("*************");
+        
         
         if let Some((coinbase, transactions)) = block.transactions.split_first() {
             if !coinbase.is_coinbase() {
@@ -54,6 +57,8 @@ impl Blockchain {
             let mut block_spent: HashSet<Hash> = HashSet::new();
             let mut block_created: HashSet<Hash> = HashSet::new();
             let mut total_fee = 0;
+
+            println!("{}", transactions.len());
 
             for transaction in transactions {
                 let input_hashes = transaction.input_hashes();
