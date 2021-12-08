@@ -65,6 +65,9 @@ impl Blockchain {
                 let input_value = transaction.input_value();
                 let output_value = transaction.output_value();
 
+                println!("Input Value {:?}", &input_value);
+                println!("Output Value {:?}", &output_value);
+                
                 if output_value > input_value {
                     return Err(BlockValidationErr::InsufficientInputValue);
                 } else {
